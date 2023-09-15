@@ -49,41 +49,41 @@
   </svg>
 </button>
 
-<!-- <style>
-	button {
-		position: fixed;
-		right: 1em;
-		bottom: 1em;
-		width: 2em;
-		height: 2em;
-		text-indent: -9999px;
-		background-color: transparent;
-		border: none;
-		opacity: 0.4;
-	}
+<style>
+  button {
+    position: fixed;
+    right: 1em;
+    top: 1em;
+    width: 2em;
+    height: 2em;
+    text-indent: -9999px;
+    background-color: transparent;
+    border: none;
+    opacity: 0.4;
+  }
 
-	.nice {
-		outline: none;
-	}
+  .nice {
+    outline: none;
+  }
 
-	svg {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		right: 0;
-		bottom: 0;
-	}
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+  }
 
-	path {
-		fill: var(--fg);
-		transition: opacity 0.6s;
-	}
+  path {
+    fill: var(--fg);
+    transition: opacity 0.6s;
+  }
 
-	.dark {
-		opacity: 0;
-	}
+  .dark {
+    opacity: 0;
+  }
 
-	:global(html.dark) .dark {
-		opacity: 1;
-	}
-</style> -->
+  :global(html.dark) .dark {
+    opacity: 1;
+  }
+</style>

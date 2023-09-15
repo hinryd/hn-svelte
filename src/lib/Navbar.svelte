@@ -5,7 +5,9 @@
   const sections = ["top", "new", "show", "ask", "jobs"];
 </script>
 
-<nav class="overflow-x-auto bg-slate-300 border-b-5 border-orange-500">
+<nav
+  class="sticky top-0 backdrop-blur overflow-x-auto border-b-5 border-orange-500"
+>
   <div class="flex items-center mx-auto">
     <img
       alt="Svelte Hacker News logo"

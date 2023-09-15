@@ -9,12 +9,16 @@
   $: section = $page.url.pathname.split("/")[1];
 </script>
 
-<Navbar {section} />
+<div class="dark:bg-black dark:text-white">
+  <Navbar {section} />
 
-{#if $navigating}
-  <PreloadingIndicator />
-{/if}
+  {#if $navigating}
+    <PreloadingIndicator />
+  {/if}
 
-<main class="">
-  <slot />
-</main>
+  <main class="dark:text-white">
+    <slot />
+  </main>
+
+  <ThemeToggler />
+</div>

@@ -48,7 +48,7 @@
   }
 
   .meta-bar {
-    padding: 1em 0;
+    padding: 0.8em 0;
     cursor: pointer;
     background: 100% 50% no-repeat url(./unfold.svg);
     background-size: 1em 1em;

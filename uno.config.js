@@ -1,14 +1,5 @@
-import { presetUno, defineConfig, presetWind } from "unocss";
+import { presetWind, defineConfig, presetAttributify } from "unocss";
 
 export default defineConfig({
-  theme: {
-    extend: {
-      colors: {
-        primary: "#FF6363",
-        secondary: "#4B5563",
-        accent: "#67C3C3",
-      },
-    },
-  },
-  plugins: [presetWind()],
+  plugins: [presetWind(), presetAttributify()],
 });
