@@ -18,5 +18,3 @@
 <main class="">
   <slot />
 </main>
-
-<ThemeToggler />
