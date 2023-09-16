@@ -75,11 +75,12 @@
   }
 
   path {
-    fill: var(--fg);
+    fill: #000;
     transition: opacity 0.6s;
   }
 
   .dark {
+    fill: #fff;
     opacity: 0;
   }
 

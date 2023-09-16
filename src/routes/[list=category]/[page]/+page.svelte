@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-  <title>Svelte Hacker News</title>
+  <title>hn {data.list}</title>
   <meta
     name="description"
     content="Latest Hacker News stories in the {data.list} category"

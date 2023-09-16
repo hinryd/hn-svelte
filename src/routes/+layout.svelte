@@ -1,6 +1,7 @@
 <script>
   import "virtual:uno.css";
   import "modern-normalize/modern-normalize.css";
+  import "../app.css";
   import { page, navigating } from "$app/stores";
   import PreloadingIndicator from "$lib/PreloadingIndicator.svelte";
   import ThemeToggler from "$lib/ThemeToggler.svelte";
@@ -9,16 +10,14 @@
   $: section = $page.url.pathname.split("/")[1];
 </script>
 
-<div class="dark:bg-black dark:text-white">
-  <Navbar {section} />
+<Navbar {section} />
 
-  {#if $navigating}
-    <PreloadingIndicator />
-  {/if}
+{#if $navigating}
+  <PreloadingIndicator />
+{/if}
 
-  <main class="dark:text-white">
-    <slot />
-  </main>
+<main class="dark:text-white">
+  <slot />
+</main>
 
-  <ThemeToggler />
-</div>
+<ThemeToggler />
