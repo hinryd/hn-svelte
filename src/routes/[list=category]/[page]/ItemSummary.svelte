@@ -24,7 +24,9 @@
       class="text-orange-600 font-bold decoration-none"
       href={item.domain ? item.url : `/item/${item.id}`}
     >
-      {item.title}
+      <span class="inline-block overflow-hidden text-ellipsis w-full"
+        >{item.title}</span
+      >
       {#if item.domain}<small class="text-xs font-light">({item.domain})</small
         >{/if}
     </a>
