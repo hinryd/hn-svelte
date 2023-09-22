@@ -1,15 +1,20 @@
 <script>
-  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
 
   /** @type {string} */
   export let section;
 
   let isTop = true;
-  // scroll detection
-  browser &&
-    window.addEventListener("scroll", () => {
-      isTop = window.scrollY < 25;
-    });
+
+  onMount(() => {
+    window.addEventListener(
+      "scroll",
+      () => {
+        isTop = window.scrollY < 25;
+      },
+      false
+    );
+  });
 
   const sections = ["top", "new", "show", "ask", "jobs"];
 </script>
