@@ -1,15 +1,27 @@
 <script>
+  import { browser } from "$app/environment";
+
   /** @type {string} */
   export let section;
+
+  let isTop = true;
+  // scroll detection
+  browser &&
+    window.addEventListener("scroll", () => {
+      isTop = window.scrollY < 25;
+    });
 
   const sections = ["top", "new", "show", "ask", "jobs"];
 </script>
 
-<nav class="sticky top-0 backdrop-blur overflow-x-auto">
-  <div class="flex items-center mx-auto">
+<nav class="sticky top-0 overflow-x-auto">
+  <div
+    class="flex items-center backdrop-blur transition-all {!isTop &&
+      'mx-3 mt-3 rounded-md shadow-md'}"
+  >
     <img
       alt="Svelte Hacker News logo"
-      class="h-9 w-9"
+      class="h-11 w-11 {!isTop && 'rounded-l-md'}"
       src="https://news.ycombinator.com/y18.svg"
     />
 
