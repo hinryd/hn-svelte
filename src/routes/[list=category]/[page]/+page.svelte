@@ -1,5 +1,7 @@
 <script>
+  import { onMount } from "svelte";
   import ItemSummary from "./ItemSummary.svelte";
+  import { goto } from "$app/navigation";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -9,6 +11,13 @@
   $: start = 1 + (data.page - 1) * PAGE_SIZE;
   $: prev = `/${data.list}/${data.page - 1}`;
   $: next = `/${data.list}/${data.page + 1}`;
+
+  onMount(() => {
+    document.addEventListener("keydown", (e) => {
+      e.key === "ArrowLeft" && prev && data.page > 1 && goto(prev);
+      e.key === "ArrowRight" && next && goto(next);
+    });
+  });
 </script>
 
 <svelte:head>
@@ -33,7 +42,7 @@
   <div class="flex justify-between items-center backdrop-blur">
     <a
       class="px-4 py-2 rounded bg-orange-400 text-black text-center decoration-none {data.page <=
-        1 && 'opacity-30'}"
+        1 && 'opacity-30 pointer-events-none'}"
       href={prev}
     >
       👈🏿
@@ -42,8 +51,7 @@
     page: {data.page}
 
     <a
-      class="px-4 py-2 rounded bg-orange-400 text-black text-center decoration-none {!next &&
-        'opacity-30'}"
+      class="px-4 py-2 rounded bg-orange-400 text-black text-center decoration-none"
       href={next}>👉🏿</a
     >
   </div>
