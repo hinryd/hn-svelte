@@ -38,7 +38,7 @@
   <div class="h-7" />
 </div>
 
-<div class="p-3 w-screen fixed bottom-0">
+<div class="p-3 w-full max-w-4xl fixed bottom-0">
   <div class="flex justify-between items-center backdrop-blur">
     <a
       class="px-4 py-2 rounded bg-orange-400 text-black text-center decoration-none {data.page <=

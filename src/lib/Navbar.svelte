@@ -19,7 +19,7 @@
   const sections = ["top", "new", "show", "ask", "jobs"];
 </script>
 
-<nav class="sticky top-0 overflow-x-auto">
+<nav class="sticky top-0 overflow-x-auto max-w-4xl mx-auto">
   <div
     class="flex items-center backdrop-blur transition-all {!isTop &&
       'mx-3 mt-3 rounded-md shadow-md'}"
@@ -30,7 +30,7 @@
       src="https://news.ycombinator.com/y18.svg"
     />
 
-    <div class="flex gap-5 pl-4 font-medium text-gray-400">
+    <div class="flex gap-5 px-4 font-medium text-gray-400 overflow-x-scroll">
       {#each sections as name}
         <div
           class="py-3 {section === name &&
