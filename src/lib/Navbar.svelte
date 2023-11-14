@@ -27,7 +27,7 @@
     <img
       alt="Svelte Hacker News logo"
       class="h-11 w-11 {!isTop && 'rounded-l-md'}"
-      src="https://news.ycombinator.com/y18.svg"
+      src="/y18.svg"
     />
 
     <div class="flex gap-5 px-4 font-medium text-gray-400 overflow-x-scroll">
