@@ -26,7 +26,7 @@
 </script>
 
 <button
-  class="fixed bottom-4 right-4 w-9 h-9 flex justify-center items-center border-1 rounded dark:bg-slate-700 shadow-xl"
+  class="fixed bottom-4 right-4 h-10 w-10 flex justify-center items-center border-1 rounded bg-white dark:bg-slate-700 shadow-md"
   aria-label="Toggle theme"
   title="Toggle theme"
   on:click={toggle}

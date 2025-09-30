@@ -18,12 +18,22 @@
   let loadingItem = false;
   let isDesktop = false;
   let observer;
+  let currentList = data.list; // Track the current list type
 
   // Reactive statements
   $: selectedItem = $page.url.searchParams.get("item");
 
-  $: if (data.items) {
-    // Initialize items when data changes
+  $: if (data.items && data.list !== currentList) {
+    // Only reset items when the list type changes (top, new, show, etc.)
+    // Not when just the selected item changes
+    Promise.resolve(data.items).then((items) => {
+      allItems = [...items];
+      currentPage = 1;
+      hasMore = true;
+      currentList = data.list;
+    });
+  } else if (data.items && allItems.length === 0) {
+    // Initialize on first load
     Promise.resolve(data.items).then((items) => {
       allItems = [...items];
       currentPage = 1;
@@ -146,7 +156,7 @@
 <div class="w-full h-full md:flex">
   <!-- Left Panel: List of posts -->
   <div
-    class="w-full md:w-1/4 lg:w-1/4 h-full overflow-y-auto border-r border-gray-200 dark:border-gray-700"
+    class="w-full md:w-3/10 h-full overflow-y-auto border-r border-gray-200 dark:border-gray-700"
   >
     <div class="flex flex-col gap-6 p-4 pb-20">
       {#each allItems as item, i}
@@ -188,7 +198,7 @@
   </div>
 
   <!-- Right Panel: Selected post details (desktop only) -->
-  <div class="hidden md:block w-3/4 h-full overflow-hidden">
+  <div class="hidden md:block w-7/10 h-full overflow-hidden">
     <ItemDetail item={selectedItemData} loading={loadingItem} />
   </div>
 </div>

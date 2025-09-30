@@ -5,7 +5,7 @@
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  
+
   /* Light mode code palette */
   --code-bg: #f6f8fa;
   --code-border: #e1e4e8;
@@ -31,10 +31,11 @@ html.dark {
   --code-number: #79c0ff;
   --code-operator: #ff7b72;
   --code-punctuation: #e6edf3;
+  scrollbar-color: grey transparent;
 }
 
 html.dark body {
-  background-color: #0d1117;
+  background-color: #1a1a1a;
 }
 
 body {
@@ -45,5 +46,6 @@ body {
 }
 
 a {
-  color: rgba(249, 115, 22); /* tailwind: text-orange-500 */
+  color: rgba(249, 115, 22);
+  /* tailwind: text-orange-500 */
 }
