@@ -16,7 +16,7 @@
   <PreloadingIndicator />
 {/if}
 
-<main class="dark:text-white mx-auto max-w-4xl">
+<main class="dark:text-white w-full h-[calc(100vh-56px)]">
   <slot />
 </main>
 
