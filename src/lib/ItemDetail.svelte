@@ -74,6 +74,7 @@
 <style>
   :global(.content-html p) {
     margin: 0.5em 0;
+    line-height: 1.6;
   }
 
   :global(.content-html a) {
@@ -82,18 +83,63 @@
   }
 
   :global(.content-html pre) {
-    background: rgb(243, 244, 246);
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
     padding: 1rem;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
     overflow-x: auto;
     margin: 1rem 0;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   :global(html.dark .content-html pre) {
-    background: rgb(31, 41, 55);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   :global(.content-html code) {
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    color: var(--code-text);
+    font-variant-ligatures: common-ligatures;
+  }
+
+  :global(.content-html pre code) {
+    display: block;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+  }
+
+  :global(.content-html :not(pre) > code) {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+  }
+
+  /* Syntax highlighting hints */
+  :global(.content-html pre code .comment) {
+    color: var(--code-comment);
+    font-style: italic;
+  }
+
+  :global(.content-html pre code .keyword) {
+    color: var(--code-keyword);
+    font-weight: 500;
+  }
+
+  :global(.content-html pre code .string) {
+    color: var(--code-string);
+  }
+
+  :global(.content-html pre code .function) {
+    color: var(--code-function);
+  }
+
+  :global(.content-html pre code .number) {
+    color: var(--code-number);
   }
 </style>
