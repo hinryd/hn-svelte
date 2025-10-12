@@ -1,34 +1,25 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
 
-	const title = offline ? 'Offline' : $page.status;
-	const message = offline ? 'Find the internet and try again' : $page.error.message;
+	const title = offline ? `You're offline` : page.status;
+	const message = offline
+		? 'Find internet and try again'
+		: page.error
+			? page.error.message
+			: 'Unknown error';
 </script>
 
 <svelte:head>
 	<title>{title}</title>
 </svelte:head>
 
-<h1>{title}</h1>
+<div class="h-full w-full flex flex-col gap-10 justify-center items-center">
+	<h1 class="font-mono text-6xl">{title}</h1>
 
-<pre>{message}</pre>
+	<pre>{message}</pre>
+</div>
 
 <style>
-	h1 {
-		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.8em;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
 </style>

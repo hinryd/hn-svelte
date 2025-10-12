@@ -22,6 +22,7 @@
     "modern-normalize": "^3.0.1",
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",
+    "runed": "^0.34.0",
     "svelte": "^5.39.11",
     "typescript-eslint": "^8.44.1",
     "unocss": "^66.5.3",

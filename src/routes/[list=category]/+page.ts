@@ -2,6 +2,8 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, url, fetch }) => {
 	const itemId = url.searchParams.get('item');
+	const query = url.searchParams.get('q');
+
 	const list = params.list === 'top' ? 'news' : params.list === 'new' ? 'newest' : params.list;
 
 	const items: Item[] = await fetch(`https://api.hnpwa.com/v0/${list}/1.json`).then((r) =>
@@ -12,9 +14,12 @@ export const load: PageLoad = async ({ params, url, fetch }) => {
 		? await fetch(`https://api.hnpwa.com/v0/item/${itemId}.json`).then((r) => r.json())
 		: null;
 
+	const queryItems: Item[] | null = query ? [] : null;
+
 	return {
 		list: params.list,
 		items,
+		queryItems,
 		selectedItem
 	};
 };

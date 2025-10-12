@@ -11,13 +11,13 @@
     let { children } = $props()
 </script>
 
-<Navbar {section} />
-
 {#if navigating}
     <PreloadingIndicator />
 {/if}
 
-<main class="dark:text-white w-full h-[calc(100vh-56px)]">
+<main class="dark:text-white h-[calc(100vh-10px)] overflow-y-hidden">
+    <Navbar {section} />
+
     {@render children?.()}
 </main>
 
