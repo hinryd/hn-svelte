@@ -18,7 +18,7 @@
 
 <div class="w-full h-full md:flex relative">
 	<div
-		class="w-full md:w-2/5 overflow-y-auto border-r border-gray-200 dark:border-gray-700 p-4 pb-20 {hasOverlay
+		class="w-full md:w-2/5 overflow-y-auto border-r border-gray-200 dark:border-gray-700 pb-20 {hasOverlay
 			? 'hidden md:block'
 			: ''}"
 	>
@@ -26,9 +26,7 @@
 	</div>
 
 	<div
-		class="{hasOverlay
-			? 'block'
-			: 'hidden'} md:block md:w-3/5 h-full overflow-hidden {hasOverlay
+		class="{hasOverlay ? 'block' : 'hidden'} md:block md:w-3/5 h-full overflow-hidden {hasOverlay
 			? 'absolute inset-0 z-50 bg-white dark:bg-gray-900 md:static'
 			: ''}"
 	>
@@ -38,7 +36,7 @@
 			>
 				<button
 					onclick={() => goto(`/${list}`)}
-					class="flex items-center gap-2 text-orange-500 hover:text-orange-600 font-medium"
+					class="w-full flex items-center gap-2 text-orange-500 hover:text-orange-600 font-medium"
 				>
 					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path
@@ -52,6 +50,7 @@
 				</button>
 			</div>
 		{/if}
+
 		<ItemDetail item={data.selectedItem} />
 	</div>
 </div>

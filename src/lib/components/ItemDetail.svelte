@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Comment from './Comment.svelte';
 
-	let { item }: { item: Item } = $props();
+	let { item }: { item: Item | null } = $props();
 </script>
 
 {#if item}

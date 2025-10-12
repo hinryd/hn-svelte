@@ -57,14 +57,14 @@
 	}
 </script>
 
-<div class="flex flex-col gap-6">
+<div class="flex flex-col">
 	{#each items as item, i}
 		{#if item}
 			<a
 				href="/{list}?item={item.id}"
-				class="block transition-colors {itemId === item.id
-					? 'bg-orange-50 dark:bg-gray-800 rounded-lg p-2 -m-2'
-					: 'hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-2 -m-2'}"
+				class="block transition-colors p-4 {itemId === item.id
+					? 'bg-orange-50 dark:bg-gray-800'
+					: 'hover:bg-gray-50 dark:hover:bg-gray-800'}"
 			>
 				<ItemSummary {item} index={i + 1} />
 			</a>
