@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 	let p = 0;
 	let visible = false;
 	onMount(() => {
@@ -15,12 +15,12 @@
 
 {#if visible}
 	<div class="progress-container">
-		<div class="progress" style="width: {p * 100}%" />
+		<div class="progress" style="width: {p * 100}%"></div>
 	</div>
 {/if}
 
 {#if p >= 0.4}
-	<div class="fade" />
+	<div class="fade"></div>
 {/if}
 
 <style>

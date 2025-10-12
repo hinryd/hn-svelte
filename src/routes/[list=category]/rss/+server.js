@@ -6,12 +6,12 @@ const render = (list, items) => `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
 	<title>Svelte HN (${list})</title>
-	<link>https://hn.svelte.dev/${list}/1</link>
+	<link>https://hn.svelte.dev/${list}</link>
 	<description>Links from the orange site</description>
 	<image>
 		<url>https://hn.svelte.dev/favicon.png</url>
 		<title>Svelte HN (${list})</title>
-		<link>https://hn.svelte.dev/${list}/1</link>
+		<link>https://hn.svelte.dev/${list}</link>
 	</image>
 	${items
 		.map(
@@ -31,11 +31,11 @@ const render = (list, items) => `<?xml version="1.0" encoding="UTF-8" ?>
 </channel>
 </rss>`;
 
-export async function GET({ params }) {
+export async function GET({ params, fetch }) {
 	const list = params.list === 'top' ? 'news' : params.list === 'new' ? 'newest' : params.list;
 	const res = await fetch(`https://api.hnpwa.com/v0/${list}/1.json`);
 	const items = await res.json();
-	const feed = render(list, items);
+	const feed = render(params.list, items);
 
 	return new Response(feed, {
 		headers: {

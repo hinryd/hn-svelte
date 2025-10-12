@@ -1,0 +1,89 @@
+<div>
+    <h2>Search</h2>
+    <h3>Sorted by relevance, then points, then number of comments</h3>
+    <p><span>GET</span><code>http://hn.algolia.com/api/v1/search?query=...</code></p>
+    <h3>Sorted by date, more recent first</h3>
+    <p><span>GET</span><code>http://hn.algolia.com/api/v1/search_by_date?query=...</code></p>
+    <p>Common query parameters:</p>
+    <table>
+        <tbody>
+            <tr>
+                <th>Parameter</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+            <tr>
+                <td><code>query=</code></td>
+                <td>full-text query</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td><code>tags=</code></td>
+                <td>filter on a specific tag. Available tags:<ul>
+                        <li><code>story</code></li>
+                        <li><code>comment</code></li>
+                        <li><code>poll</code></li>
+                        <li><code>pollopt</code></li>
+                        <li><code>show_hn</code></li>
+                        <li><code>ask_hn</code></li>
+                        <li><code>front_page</code></li>
+                        <li><code>author_:USERNAME</code></li>
+                        <li><code>story_:ID</code></li>
+                    </ul>
+                </td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td><code>numericFilters=</code></td>
+                <td>filter on a specific numerical condition (<code>&lt;</code>, <code>&lt;=</code>, <code>=</code>,
+                    <code>&gt;</code> or <code>&gt;=</code>).<br> Available numerical fields:<ul>
+                        <li><code>created_at_i</code></li>
+                        <li><code>points</code></li>
+                        <li><code>num_comments</code></li>
+                    </ul>
+                </td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td><code>page=</code></td>
+                <td>page number</td>
+                <td>Integer</td>
+            </tr>
+        </tbody>
+    </table><br>
+    <p>Tags are ANDed by default, can be ORed if between parenthesis. For example <code>author_pg,(story,poll)</code>
+        filters on <code>author=pg AND (type=story OR type=poll)</code>.</p>
+    <p>By default a limited number of results are returned in each page, so a given query may be broken over dozens of
+        pages. The number of results and page number are available as the variables <code>nbPages</code> and
+        <code>hitsPerPage</code> respectively; they can be specified as arguments in requests, allowing for more results
+        to be requested or iteration over the available pages eg appending to the search URL parameters like
+        <code>&amp;page=2</code> or <code>hitsPerPage=50</code>.</p>
+    <p>The complete list of search parameters is available in Algolia <a
+            href="https://www.algolia.com/doc/rest_api#QueryIndex">Search API documentation</a>.</p>
+    <h3>Examples</h3>
+    <dl>
+        <dt>All stories matching <code>foo</code></dt>
+        <dd><code>http://hn.algolia.com/api/v1/search?query=foo&amp;tags=story</code></dd>
+        <dt>All comments matching <code>bar</code></dt>
+        <dd><code>http://hn.algolia.com/api/v1/search?query=bar&amp;tags=comment</code></dd>
+        <dt>All URLs matching <code>bar</code></dt>
+        <dd><code>http://hn.algolia.com/api/v1/search?query=bar&amp;restrictSearchableAttributes=url</code></dd>
+        <dt>All stories that are on the front/home page right now</dt>
+        <dd><code>http://hn.algolia.com/api/v1/search?tags=front_page</code></dd>
+        <dt>Last stories</dt>
+        <dd><code>http://hn.algolia.com/api/v1/search_by_date?tags=story</code></dd>
+        <dt>Last stories OR polls</dt>
+        <dd><code>http://hn.algolia.com/api/v1/search_by_date?tags=(story,poll)</code></dd>
+        <dt>Comments since timestamp <code>X</code> (in second)</dt>
+        <dd><code>http://hn.algolia.com/api/v1/search_by_date?tags=comment&amp;numericFilters=created_at_i&gt;X</code>
+        </dd>
+        <dt>Stories between timestamp <code>X</code> and timestamp <code>Y</code> (in second)</dt>
+        <dd><code>http://hn.algolia.com/api/v1/search_by_date?tags=story&amp;numericFilters=created_at_i&gt;X,created_at_i&lt;Y</code>
+        </dd>
+        <dt>Stories of <code>pg</code></dt>
+        <dd><code>http://hn.algolia.com/api/v1/search?tags=story,author_pg</code></dd>
+        <dt>Comments of story <code>X</code></dt>
+        <dd><code>http://hn.algolia.com/api/v1/search?tags=comment,story_X</code></dd>
+    </dl>
+    <pre><div><div></div><span></span>{<ul><li><div><span>hits</span>:<div></div>[<span></span><ul><li><div><div></div><span></span>{<ul><li><div><span>title</span>: <span>"Y Combinator"</span>,</div></li><li><div><span>url</span>: <span>"</span><a href="http://ycombinator.com">http://ycombinator.com</a><span>"</span>,</div></li><li><div><span>author</span>: <span>"pg"</span>,</div></li><li><div><span>points</span>: <span>57</span>,</div></li><li><div><span>story_text</span>: <span>null</span>,</div></li><li><div><span>comment_text</span>: <span>null</span>,</div></li><li><div><span>_tags</span>: <div></div>[<span></span><ul><li><div><span>"story"</span></div></li></ul>],</div></li><li><div><span>num_comments</span>: <span>2</span>,</div></li><li><div><span>objectID</span>: <span>"1"</span>,</div></li><li><div><span>_highlightResult</span>: <div></div><span></span>{<ul><li><div><span>title</span>: <div></div><span></span>{<ul><li><div><span>value</span>: <span>"Y Combinator"</span>,</div></li><li><div><span>matchLevel</span>: <span>"none"</span>,</div></li><li><div><span>matchedWords</span>: [ ]</div></li></ul>},</div></li><li><div><span>url</span>: <div></div><span></span>{<ul><li><div><span>value</span>: <span>"</span><a href="http://ycombinator.com">http://ycombinator.com</a><span>"</span>,</div></li><li><div><span>matchLevel</span>: <span>"none"</span>,</div></li><li><div><span>matchedWords</span>: [ ]</div></li></ul>},</div></li><li><div><span>author</span>: <div></div><span></span>{<ul><li><div><span>value</span>: <span>"&lt;em&gt;pg&lt;/em&gt;"</span>,</div></li><li><div><span>matchLevel</span>: <span>"full"</span>,</div></li><li><div><span>matchedWords</span>: <div></div>[<span></span><ul><li><div><span>"pg"</span></div></li></ul>]</div></li></ul>}</div></li></ul>}</div></li></ul>}, [...]</div></li></ul>],</div></li><li><div><span>page</span>: <span>0</span>,</div></li><li><div><span>nbHits</span>: <span>11</span>,</div></li><li><div><span>nbPages</span>: <span>1</span>,</div></li><li><div><span>hitsPerPage</span>: <span>20</span>,</div></li><li><div><span>processingTimeMS</span>: <span>1</span>,</div></li><li><div><span>query</span>: <span>"pg"</span>,</div></li><li><div><span>params</span>: <span>"query=pg"</span></div></li></ul>}</div></pre>
+</div>
