@@ -11,14 +11,10 @@
     let { children } = $props()
 </script>
 
-{#if navigating}
-    <PreloadingIndicator />
-{/if}
+<Navbar {section} />
 
-<main class="dark:text-white h-[calc(100vh-10px)] overflow-y-hidden">
-    <Navbar {section} />
-
+<main class="dark:text-white h-screen pt-12">
     {@render children?.()}
 </main>
 
-<ThemeToggler />
+<!-- <ThemeToggler /> -->

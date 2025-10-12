@@ -95,15 +95,11 @@
 </script>
 
 <nav
-    class="sticky top-0 w-full bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-200 dark:border-gray-700 z-50"
+    class="fixed top-0 w-full bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-200 dark:border-gray-700 z-50"
 >
-    <div class="flex items-center justify-between backdrop-blur transition-all px-2 md:px-4">
+    <div class="flex items-center justify-between backdrop-blur transition-all">
         <div class="flex items-center gap-3 flex-1">
-            <img
-                alt="Svelte Hacker News logo"
-                class="h-11 w-11 {!isTop && 'rounded-l-md'}"
-                src="/y18.svg"
-            />
+            <img alt="Svelte Hacker News logo" class="h-11 w-11" src="/y18.svg" />
 
             <!-- Search Bar -->
             <div class="relative flex-1 max-w-md search-container">
