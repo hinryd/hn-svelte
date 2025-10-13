@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { goto, pushState, replaceState } from "$app/navigation"
     import { page } from "$app/state"
     import ItemSummary from "./ItemSummary.svelte"
-    import { onMount, onDestroy } from "svelte"
 
     let { items }: { items: Item[] } = $props()
 

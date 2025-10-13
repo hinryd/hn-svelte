@@ -5,7 +5,7 @@
 </script>
 
 {#if item}
-    <div class="relative h-full overflow-y-auto p-4 pb-20 z-40">
+    <div class="relative h-full overflow-y-auto p-4 pb-20">
         <article>
             <a class="decoration-none" href={item.url} target="_blank" rel="noopener">
                 <h1 class="m-0 text-2xl font-bold mb-2">{item.title}</h1>

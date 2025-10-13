@@ -2,8 +2,7 @@
     import "virtual:uno.css"
     import "modern-normalize/modern-normalize.css"
     import "../app.css"
-    import { page, navigating } from "$app/state"
-    import PreloadingIndicator from "$lib/components/PreloadingIndicator.svelte"
+    import { page } from "$app/state"
     import ThemeToggler from "$lib/components/ThemeToggler.svelte"
     import Navbar from "$lib/components/Navbar.svelte"
 
@@ -13,8 +12,8 @@
 
 <Navbar {section} />
 
-<main class="dark:text-white h-screen pt-12">
+<main class="dark:text-white h-screen pt-14">
     {@render children?.()}
 </main>
 
-<!-- <ThemeToggler /> -->
+<ThemeToggler />

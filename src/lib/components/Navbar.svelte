@@ -1,30 +1,26 @@
 <script lang="ts">
     import { onMount } from "svelte"
     import { slide, fade } from "svelte/transition"
-    import { goto } from "$app/navigation"
     import { page } from "$app/state"
+    import { afterNavigate } from "$app/navigation"
 
     let { section }: { section: string } = $props()
 
-    let isTop = $state(true)
     let isSearching = $state(false)
     let isMenuOpen = $state(false)
     let searchQuery = $state("")
-    let searchResults = $state([])
     let showSearchResults = $state(false)
+    let searchTimeout: ReturnType<typeof setTimeout> | undefined
+    let searchResults: HNAlgoliaHit[] = $state([])
+    let list = $derived(page.params.list)
 
-    let query = $derived(page.url.searchParams.get("q"))
+    afterNavigate(() => {
+        showSearchResults = false
+    })
+
     const sections = ["top", "new", "best", "show", "ask", "jobs"]
 
     onMount(() => {
-        window.addEventListener(
-            "scroll",
-            () => {
-                isTop = window.scrollY < 25
-            },
-            false
-        )
-
         const handleClickOutside = (e) => {
             if (!e.target.closest(".search-container")) {
                 showSearchResults = false
@@ -34,55 +30,42 @@
         return () => document.removeEventListener("click", handleClickOutside)
     })
 
-    async function handleSearch(e: Event) {
-        e.preventDefault()
+    function debounceSearch() {
+        clearTimeout(searchTimeout)
+        searchTimeout = setTimeout(async () => {
+            if (!searchQuery.trim()) {
+                searchResults = []
+                showSearchResults = false
+                return
+            }
 
-        isSearching = true
-        showSearchResults = true
+            isSearching = true
+            showSearchResults = true
 
-        const item = page.url.searchParams.get("item")
-
-        goto(`/${page.params.list}?${item ? `item=${item}` : ""}${query ? `&q=${query}` : ""}`, {
-            keepFocus: true,
-            replaceState: false
-        })
-
-        if (!query.trim()) {
-            searchResults = []
-            showSearchResults = false
-            return
-        }
-
-        try {
-            const uri = encodeURIComponent(query)
-            console.log("thisis uri", uri)
-            const response = await fetch(
-                `https://hn.algolia.com/api/v1/search?query=${uri}&tags=story&hitsPerPage=10`
-            )
-            const data = await response.json()
-            searchResults = data.hits.map((hit) => ({
-                id: hit.objectID,
-                title: hit.title || hit.story_title,
-                points: hit.points,
-                author: hit.author,
-                num_comments: hit.num_comments,
-                created_at: hit.created_at
-            }))
-        } catch (error) {
-            console.error("Search failed:", error)
-            searchResults = []
-        } finally {
-            isSearching = false
-        }
+            try {
+                const uri = encodeURIComponent(searchQuery)
+                const response = await fetch(
+                    `https://hn.algolia.com/api/v1/search?query=${uri}&tags=story&hitsPerPage=10`
+                )
+                const data = await response.json()
+                searchResults = data.hits.map((hit) => ({
+                    id: hit.objectID,
+                    title: hit.title || hit.story_title,
+                    points: hit.points,
+                    author: hit.author,
+                    num_comments: hit.num_comments,
+                    created_at: hit.created_at
+                }))
+            } catch (error) {
+                console.error("Search failed:", error)
+                searchResults = []
+            } finally {
+                isSearching = false
+            }
+        }, 300)
     }
 
-    function selectResult(id) {
-        showSearchResults = false
-        searchQuery = ""
-        goto(`/item/${id}`)
-    }
-
-    function formatTimeAgo(dateString) {
+    function formatTimeAgo(dateString: string) {
         const date = new Date(dateString)
         const now = new Date()
         const diff = Math.floor((now - date) / 1000)
@@ -97,16 +80,17 @@
 <nav
     class="fixed top-0 w-full bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-200 dark:border-gray-700 z-50"
 >
-    <div class="flex items-center justify-between backdrop-blur transition-all">
+    <div class="flex items-center justify-between backdrop-blur transition-all px-2 md:px-4 py-1">
         <div class="flex items-center gap-3 flex-1">
-            <img alt="Svelte Hacker News logo" class="h-11 w-11" src="/y18.svg" />
+            <img alt="Svelte Hacker News logo" class="h-10 w-10" src="/y18.svg" />
 
             <!-- Search Bar -->
             <div class="relative flex-1 max-w-md search-container">
                 <div class="relative">
                     <input
                         type="text"
-                        oninput={handleSearch}
+                        bind:value={searchQuery}
+                        oninput={debounceSearch}
                         onfocus={() => searchQuery && (showSearchResults = true)}
                         placeholder="Search stories..."
                         class="w-full py-2 pl-10 pr-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
@@ -135,8 +119,8 @@
 
                 {#if showSearchResults}
                     <div
-                        class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl max-h-96 overflow-y-auto z-[100] min-w-[300px]"
-                        transition:fade={{ duration: 150 }}
+                        class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl max-h-96 overflow-y-auto z-20 min-w-[300px]"
+                        transition:fade={{ duration: 50 }}
                     >
                         {#if isSearching}
                             <div class="p-4 text-center text-gray-500 dark:text-gray-400">
@@ -147,27 +131,18 @@
                                 No results found for "{searchQuery}"
                             </div>
                         {:else}
-                            {#each searchResults as result}
-                                <button
-                                    class="w-full text-left p-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-colors"
-                                    onclick={() => selectResult(result.id)}
-                                >
-                                    <div class="font-medium text-gray-900 dark:text-gray-100 mb-1">
-                                        {result.title}
-                                    </div>
-                                    <div
-                                        class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400"
+                            <div class="flex flex-col">
+                                {#each searchResults as result}
+                                    <a
+                                        class="cursor-pointer block p-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-colors"
+                                        href="/{list}?item={result.id}"
                                     >
-                                        <span>{result.points} points</span>
-                                        <span>·</span>
-                                        <span>by {result.author}</span>
-                                        <span>·</span>
-                                        <span>{formatTimeAgo(result.created_at)}</span>
-                                        <span>·</span>
-                                        <span>{result.num_comments} comments</span>
-                                    </div>
-                                </button>
-                            {/each}
+                                        <div class="font-medium text-gray-900 dark:text-gray-100">
+                                            {result.title}
+                                        </div>
+                                    </a>
+                                {/each}
+                            </div>
                         {/if}
                     </div>
                 {/if}

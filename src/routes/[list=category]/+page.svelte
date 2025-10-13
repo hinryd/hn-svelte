@@ -29,12 +29,12 @@
         class="{hasOverlay
             ? 'block'
             : 'hidden'} md:block md:w-3/5 h-full overflow-hidden {hasOverlay
-            ? 'absolute inset-0 z-50 bg-white dark:bg-gray-900 md:static'
+            ? 'absolute inset-0 md:static'
             : ''}"
     >
         {#if hasOverlay}
             <div
-                class="md:hidden sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-3"
+                class="md:hidden sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 p-3"
             >
                 <button
                     onclick={() => goto(`/${list}`)}
