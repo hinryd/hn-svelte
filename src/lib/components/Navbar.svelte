@@ -136,6 +136,10 @@
                                     <a
                                         class="cursor-pointer block p-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-colors"
                                         href="/{list}?item={result.id}"
+                                        onclick={() => {
+                                            showSearchResults = false
+                                            searchQuery = ""
+                                        }}
                                     >
                                         <div class="font-medium text-gray-900 dark:text-gray-100">
                                             {result.title}
