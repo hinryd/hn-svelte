@@ -41,7 +41,7 @@
         </div>
     </div>
 {:else}
-    <div class="flex items-center justify-center h-full p-8 text-center">
+    <div class="md:flex items-center justify-center h-full p-8 text-center">
         <div class="text-gray-400">
             <svg
                 class="w-16 h-16 mx-auto mb-4 opacity-50"
