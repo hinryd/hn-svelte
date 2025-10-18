@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { goto, pushState, replaceState } from "$app/navigation"
     import { page } from "$app/state"
     import ItemSummary from "./ItemSummary.svelte"
 
     let { items }: { items: Item[] } = $props()
 
-    let allItems = $state<Item[]>([...items])
+    let allItems = $state(items)
     let isLoading = $state(false)
     let hasMore = $state(true)
     let currentPage = $state(1)
@@ -33,11 +32,10 @@
             )
             observer.observe(sentinelElement)
         }
+        // return () => {
+        //     observer?.disconnect()
+        // }
     })
-
-    // onDestroy(() => {
-    //     observer?.disconnect()
-    // })
 
     async function loadNextPage() {
         if (isLoading || !hasMore) return

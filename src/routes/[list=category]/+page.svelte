@@ -6,6 +6,7 @@
 
     let { data } = $props()
 
+    let items = $state(data.items)
     let list = $derived(page.params.list)
     let itemId = $derived(page.url.searchParams.get("item"))
     let hasOverlay = $derived(!!itemId)
@@ -22,7 +23,7 @@
             ? 'hidden md:block'
             : ''}"
     >
-        <ItemList items={data.items} />
+        <ItemList {items} />
     </div>
 
     <div class="{hasOverlay ? 'block' : 'hidden'} md:block md:w-3/5 h-full overflow-hidden">
