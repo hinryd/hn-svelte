@@ -80,7 +80,9 @@
 <nav
     class="fixed top-0 w-full bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-200 dark:border-gray-700 z-50"
 >
-    <div class="flex items-center justify-between backdrop-blur transition-all px-2 md:px-4 py-1">
+    <div
+        class="flex items-center justify-between backdrop-blur transition-all px-2 md:px-4 py-1 max-w-7xl mx-auto"
+    >
         <div class="flex items-center gap-3 flex-1">
             <img alt="Svelte Hacker News logo" class="h-10 w-10" src="/y18.svg" />
 

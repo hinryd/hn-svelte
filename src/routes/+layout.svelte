@@ -12,7 +12,7 @@
 
 <Navbar {section} />
 
-<main class="dark:text-white h-screen pt-14">
+<main class="dark:text-white h-screen max-w-7xl mx-auto pt-14">
     {@render children?.()}
 </main>
 
