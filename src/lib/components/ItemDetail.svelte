@@ -5,12 +5,12 @@
 </script>
 
 {#if item}
-    <div class="relative h-full overflow-y-auto p-4 pb-20">
+    <div class="relative h-full overflow-y-auto pt-4 pb-20 px-3">
         <article
-            class="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-2xl p-5 md:p-6"
+            class="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-2xl p-6"
         >
             <a class="decoration-none" href={item.url} target="_blank" rel="noopener">
-                <h1 class="m-0 text-2xl font-bold mb-2">{item.title}</h1>
+                <h1 class="m-0 text-2xl font-bold mb-2 font-sans-flex">{item.title}</h1>
                 {#if item.domain}
                     <small class="text-xs font-light text-[var(--text-muted)]">{item.domain}</small>
                 {/if}

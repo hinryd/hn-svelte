@@ -11,7 +11,9 @@
 <article>
     <h4 class="m-0">
         <span class="text-[var(--accent-strong)] font-semibold decoration-none hover:underline">
-            <span class="inline-block overflow-hidden text-ellipsis w-full">{item.title}</span>
+            <span class="inline-block overflow-hidden text-ellipsis w-full font-sans-flex"
+                >{item.title}</span
+            >
             {#if item.domain}
                 <small class="text-xs font-light text-[var(--text-muted)]">
                     ({item.domain})
