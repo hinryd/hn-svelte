@@ -2,6 +2,15 @@
     import Comment from "./CommentView.svelte"
 
     let { item }: { item: Item | null } = $props()
+    let sortMode: "default" | "recent" = $state("default")
+
+    function getVisibleComments() {
+        if (!item || !item.comments) return []
+        if (sortMode === "recent") {
+            return [...item.comments].sort((a, b) => b.time - a.time)
+        }
+        return item.comments
+    }
 </script>
 
 {#if item}
@@ -33,11 +42,25 @@
         </article>
 
         <div class="mt-6 text-sm text-[var(--text-secondary)]">
-            <h2 class="text-lg font-semibold mb-4">
-                Comments ({item.comments_count})
-            </h2>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold">
+                    Comments ({item.comments_count})
+                </h2>
+                {#if item.comments && item.comments.length > 0}
+                    <label class="flex items-center gap-2 text-xs md:text-sm">
+                        <span class="text-[var(--text-muted)]">Sort</span>
+                        <select
+                            bind:value={sortMode}
+                            class="border border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-secondary)] text-xs md:text-sm rounded-md px-2 py-1"
+                        >
+                            <option value="default">Default</option>
+                            <option value="recent">Most recent</option>
+                        </select>
+                    </label>
+                {/if}
+            </div>
             {#if item.comments && item.comments.length > 0}
-                {#each item.comments as comment}
+                {#each getVisibleComments() as comment}
                     <Comment {comment} />
                 {/each}
             {:else}
