@@ -6,17 +6,22 @@
 
 {#if item}
     <div class="relative h-full overflow-y-auto p-4 pb-20">
-        <article>
+        <article
+            class="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-2xl p-5 md:p-6"
+        >
             <a class="decoration-none" href={item.url} target="_blank" rel="noopener">
                 <h1 class="m-0 text-2xl font-bold mb-2">{item.title}</h1>
                 {#if item.domain}
-                    <small class="text-xs font-light text-gray-500">{item.domain}</small>
+                    <small class="text-xs font-light text-[var(--text-muted)]">{item.domain}</small>
                 {/if}
             </a>
 
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+            <p class="text-sm text-[var(--text-secondary)] mt-2">
                 {item.points} points by
-                <a class="text-orange-500 hover:underline" href="/user/{item.user}">{item.user}</a>
+                <a
+                    class="text-[var(--accent)] hover:text-[var(--accent-strong)] hover:underline"
+                    href="/user/{item.user}">{item.user}</a
+                >
                 {item.time_ago}
             </p>
 
@@ -27,7 +32,7 @@
             {/if}
         </article>
 
-        <div class="mt-6 text-sm">
+        <div class="mt-6 text-sm text-[var(--text-secondary)]">
             <h2 class="text-lg font-semibold mb-4">
                 Comments ({item.comments_count})
             </h2>
@@ -36,13 +41,13 @@
                     <Comment {comment} />
                 {/each}
             {:else}
-                <p class="text-gray-500">No comments yet.</p>
+                <p class="text-[var(--text-muted)]">No comments yet.</p>
             {/if}
         </div>
     </div>
 {:else}
     <div class="md:flex items-center justify-center h-full p-8 text-center">
-        <div class="text-gray-400">
+        <div class="text-[var(--text-muted)]">
             <svg
                 class="w-16 h-16 mx-auto mb-4 opacity-50"
                 fill="none"

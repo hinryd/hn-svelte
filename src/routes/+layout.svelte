@@ -12,7 +12,9 @@
 
 <Navbar {section} />
 
-<main class="dark:text-white h-screen max-w-7xl mx-auto pt-14">
+<main
+    class="h-screen max-w-7xl mx-auto pt-16 px-2 md:px-4 bg-[var(--bg)] text-[var(--text-primary)] transition-colors duration-300 ease-in-out"
+>
     {@render children?.()}
 </main>
 

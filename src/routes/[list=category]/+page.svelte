@@ -19,7 +19,7 @@
 
 <div class="h-full w-full md:flex relative">
     <div
-        class="w-full md:w-2/5 overflow-y-auto border-r border-gray-200 dark:border-gray-700 pb-20 {hasOverlay
+        class="w-full md:w-2/5 overflow-y-auto border-r border-[var(--border-subtle)] pb-20 {hasOverlay
             ? 'hidden md:block'
             : ''}"
     >
@@ -29,11 +29,11 @@
     <div class="{hasOverlay ? 'block' : 'hidden'} md:block md:w-3/5 h-full overflow-hidden">
         {#if hasOverlay}
             <div
-                class="md:hidden sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700 p-3"
+                class="md:hidden sticky top-0 z-10 border-b border-[var(--border-subtle)] p-3 bg-[var(--bg)]"
             >
                 <a
                     href="/{list}"
-                    class="w-full flex flex-nowrap items-center gap-2 text-orange-500 hover:text-orange-600 font-medium"
+                    class="w-full flex flex-nowrap items-center gap-2 text-[var(--accent)] hover:text-[var(--accent-strong)] font-medium"
                 >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path

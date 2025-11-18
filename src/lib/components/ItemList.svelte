@@ -68,9 +68,9 @@
         {#if item}
             <a
                 href="/{list}?item={item.id}"
-                class="block transition-colors p-4 {itemId === item.id.toString()
-                    ? 'bg-orange-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800'}"
+                class="block transition-all p-4 rounded-xl {itemId === item.id.toString()
+                    ? 'bg-[var(--accent-soft)]'
+                    : 'hover:bg-[var(--bg-subtle)]'}"
             >
                 <ItemSummary {item} index={i + 1} />
             </a>
@@ -80,9 +80,9 @@
     <!-- Sentinel element for infinite scroll -->
     <div bind:this={sentinelElement} class="h-10 flex items-center justify-center">
         {#if isLoading}
-            <div class="text-orange-400 animate-pulse">Loading more...</div>
+            <div class="text-[var(--accent)] animate-pulse">Loading more...</div>
         {:else if !hasMore}
-            <div class="text-gray-400">No more items</div>
+            <div class="text-[var(--text-muted)]">No more items</div>
         {/if}
     </div>
 </div>

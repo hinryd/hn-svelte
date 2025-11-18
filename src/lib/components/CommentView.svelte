@@ -34,11 +34,11 @@
 
 <style>
     .comment {
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-top: 1px solid var(--border-subtle);
     }
 
     :global(html.dark) .comment {
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid var(--border-subtle);
     }
 
     .meta-bar {
@@ -79,15 +79,15 @@
     .meta {
         display: block;
         font-size: 14px;
-        color: rgb(107, 114, 128);
+        color: var(--text-secondary);
     }
 
     :global(html.dark) .meta {
-        color: rgb(156, 163, 175);
+        color: var(--text-secondary);
     }
 
     .meta a {
-        color: rgb(249, 115, 22);
+        color: var(--accent);
         text-decoration: none;
         font-weight: 500;
     }
@@ -114,11 +114,6 @@
         overflow-x: auto;
         margin: 1rem 0;
         line-height: 1.5;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    :global(html.dark) .comment :global(pre) {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .comment :global(code) {
@@ -149,7 +144,7 @@
     }
 
     :global(.content-html a) {
-        color: rgb(249, 115, 22);
+        color: var(--accent);
         text-decoration: underline;
     }
 
@@ -161,11 +156,6 @@
         overflow-x: auto;
         margin: 1rem 0;
         line-height: 1.5;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    :global(html.dark .content-html pre) {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     :global(.content-html code) {

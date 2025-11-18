@@ -77,11 +77,9 @@
     }
 </script>
 
-<nav
-    class="fixed top-0 w-full bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-200 dark:border-gray-700 z-50"
->
+<nav class="fixed top-0 w-full z-50 border-b border-[var(--navbar-border)] bg-[var(--navbar-blur)]">
     <div
-        class="flex items-center justify-between backdrop-blur transition-all px-2 md:px-4 py-1 max-w-7xl mx-auto"
+        class="flex items-center justify-between transition-all px-2 md:px-4 py-2 max-w-7xl mx-auto"
     >
         <div class="flex items-center gap-3 flex-1">
             <img alt="Svelte Hacker News logo" class="h-10 w-10" src="/y18.svg" />
@@ -95,7 +93,7 @@
                         oninput={debounceSearch}
                         onfocus={() => searchQuery && (showSearchResults = true)}
                         placeholder="Search stories..."
-                        class="w-full py-2 pl-10 pr-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                        class="w-full py-2.5 pl-10 pr-4 text-sm rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
                     />
                     <svg
                         class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
@@ -113,7 +111,7 @@
                     {#if isSearching}
                         <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
                             <div
-                                class="animate-spin h-4 w-4 border-2 border-orange-500 border-t-transparent rounded-full"
+                                class="animate-spin h-4 w-4 border-2 border-[var(--accent)] border-t-transparent rounded-full"
                             ></div>
                         </div>
                     {/if}
@@ -121,29 +119,27 @@
 
                 {#if showSearchResults}
                     <div
-                        class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl max-h-96 overflow-y-auto z-20 min-w-[300px]"
+                        class="absolute top-full left-0 right-0 mt-2 bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-2xl max-h-96 overflow-y-auto z-20 min-w-[300px]"
                         transition:fade={{ duration: 50 }}
                     >
                         {#if isSearching}
-                            <div class="p-4 text-center text-gray-500 dark:text-gray-400">
-                                Searching...
-                            </div>
+                            <div class="p-4 text-center text-[var(--text-muted)]">Searching...</div>
                         {:else if searchResults.length === 0 && searchQuery}
-                            <div class="p-4 text-center text-gray-500 dark:text-gray-400">
+                            <div class="p-4 text-center text-[var(--text-muted)]">
                                 No results found for "{searchQuery}"
                             </div>
                         {:else}
                             <div class="flex flex-col">
                                 {#each searchResults as result}
                                     <a
-                                        class="cursor-pointer block p-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-colors"
+                                        class="cursor-pointer block px-3 py-2.5 hover:bg-[var(--bg-subtle)] border-b border-[var(--border-subtle)] last:border-b-0 transition-colors"
                                         href="/{list}?item={result.id}"
                                         onclick={() => {
                                             showSearchResults = false
                                             searchQuery = ""
                                         }}
                                     >
-                                        <div class="font-medium text-gray-900 dark:text-gray-100">
+                                        <div class="font-medium text-[var(--text-primary)]">
                                             {result.title}
                                         </div>
                                     </a>
@@ -160,13 +156,7 @@
             onclick={() => (isMenuOpen = !isMenuOpen)}
             aria-label="Toggle menu"
         >
-            <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -176,14 +166,15 @@
             </svg>
         </button>
 
-        <div class="hidden md:flex gap-5 px-4 font-medium text-gray-400 overflow-hidden">
+        <div class="hidden md:flex gap-5 px-4 font-medium text-[var(--text-muted)] overflow-hidden">
             {#each sections as name}
                 <div
-                    class="py-3 {section === name &&
-                        'border-0 border-b-2 border-solid border-orange-500'}"
+                    class="py-3 border-b-2 border-transparent {section === name &&
+                        'border-[var(--accent)]'}"
                 >
                     <a
-                        class="decoration-none {section === name && 'text-black dark:text-white'}"
+                        class="decoration-none text-xs md:text-sm uppercase tracking-wide text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors {section ===
+                            name && 'text-[var(--text-primary)]'}"
                         href="/{name}">{name}</a
                     >
                 </div>
@@ -192,11 +183,14 @@
     </div>
 
     {#if isMenuOpen}
-        <div class="md:hidden bg-white dark:bg-gray-800 shadow-md" transition:slide>
+        <div
+            class="md:hidden bg-[var(--bg-elevated)] border-t border-[var(--border-subtle)]"
+            transition:slide
+        >
             {#each sections as name}
                 <a
-                    class="block py-2 px-4 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 {section ===
-                        name && 'bg-gray-200 dark:bg-gray-700'}"
+                    class="block py-2.5 px-4 text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)] {section ===
+                        name && 'bg-[var(--accent-soft)] text-[var(--text-primary)]'}"
                     href="/{name}"
                     onclick={() => (isMenuOpen = false)}
                 >
